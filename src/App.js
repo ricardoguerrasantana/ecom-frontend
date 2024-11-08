@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 
-function App() {
+// import Account from "./pages/Account"
+// import Cart from "./pages/Cart"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+// import Shop from "./pages/Shop"
+
+// import ProtectedRoute from "./components/ProtectedRoute"
+import Navbar from "./components/Navbar"
+
+import { AuthProvider } from "./contexts/AuthContext"
+import { CartProvider } from "./contexts/CartContext"
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* <Route
+              path="account"
+              element={
+                <ProtectedRoute>
+                  <Account />
+                </ProtectedRoute>
+              }
+            /> */}
+            <Route path="/login" element={<Login />} />
+            {/* <Route path="/cart" element={<Cart />} /> */}
+            {/* <Route path="/shop" element={<Shop />} /> */}
+          </Routes>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
+  )
 }
 
-export default App;
+export default App
